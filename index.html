@@ -15,6 +15,7 @@
 <h1>Guess the 8th Item in the Sequence!</h1>
 <div id="sequence">A</div>
 <div id="controls">
+  <p id="pointsID">For 8 points...</p>
   <input type="text" id="guessInput" placeholder="Enter your guess...">
   <button onclick="makeGuess()">Submit Guess</button>
   <button onclick="revealNext()">Reveal Next</button>
@@ -22,16 +23,16 @@
 <div id="result" style="font-size: 1.2em; margin-top: 20px;"></div>
 
 <script>
-  const sequence = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+  const sequence = ['Seoul', 'Cairo', 'Lima', 'Jakarta', 'Kinshasa', 'Moscow', 'Tokyo', 'Beijing'];
   let currentIndex = 0;
 
   function makeGuess() {
     const guess = document.getElementById('guessInput').value.toUpperCase();
     if (guess === sequence[7]) {
-      document.getElementById('result').textContent = "Congratulations! You guessed correctly.";
+      document.getElementById('result').textContent = "Congratulations! Beijing is correct!<br/>You receive " + (8-currentIndex) + "points!<br/>These are the 8 capital cities with the highest population.";
       disableGame();
     } else {
-      document.getElementById('result').textContent = "Incorrect guess. Try again or reveal the next item.";
+      document.getElementById('result').textContent = "Incorrect guess. Try again or reveal another item in the sequence.";
     }
     document.getElementById('guessInput').value = '';
   }
@@ -41,6 +42,7 @@
     if (currentIndex < sequence.length) {
       document.getElementById('sequence').textContent += ' ' + sequence[currentIndex];
       document.getElementById('result').textContent = '';
+      document.getElementById('pointsID').textContent = "For " + (8-currentIndex) + points...";
     } 
     if (currentIndex === 7) {
       document.getElementById('result').textContent = "Game over! The correct answer was " + sequence[7] + ".";
