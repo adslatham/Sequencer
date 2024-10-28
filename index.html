@@ -45,7 +45,7 @@
     <table>
       <tbody>
         <tr>
-          <td id="item0">Cats</td>
+          <td id="item0">?</td>
         </tr>
         <tr>
           <td id="item1">?</td>
@@ -79,13 +79,17 @@
     <div id="result" style="font-size: 1.2em; margin-top: 20px"></div>
 
     <script>
-      const sequence = ["Cats", "The Lion King", "Blood Brothers (revival)", "Mamma Mia!", "The Woman in Black", "The Phantom of the Opera", "Les Misérables", "The Mousetrap"];
+      const sequence = ["United", "City", "United", "[None]", "[None]", "Forest", "City", "Wanderers"];
+      const validAnswers = ["wanderers"];
+      const topic = "The second word in 24/25 Premier League clubs, ordered from north to south. Starting with Newcastle, 8th is Wolverhampton Wanderers";
       let currentIndex = 0;
+
+      document.getElementById(`item0`).textContent = sequence[0];
 
       function makeGuess() {
         const guess = document.getElementById("guessInput").value.toUpperCase();
         if (guess !== "") {
-          if (guess.toLowerCase() === sequence[7].toLowerCase()) {
+          if (validAnswers.indexOf(guess.toLowerCase()) > -1) {
             document.getElementById("result").innerHTML =
               "Congratulations! <b>" +
               sequence[7] +
@@ -93,7 +97,8 @@
               (7 - currentIndex) +
               " point" +
               (currentIndex == 6 ? "" : "s") +
-              "!<br/>These are the 8 capital cities with the highest population.";
+              "!<br/>The sequence was: " +
+              topic;
             revealAll();
             disableGame();
           } else {
@@ -114,8 +119,7 @@
           document.getElementById("pointsID").innerHTML = "For " + (7 - currentIndex) + " point" + (currentIndex == 6 ? "..." : "s...");
         }
         if (currentIndex === sequence.length - 1) {
-          document.getElementById("result").innerHTML =
-            "Game over! The correct answer was <b>" + sequence[7] + "</b>.<br/>These are the 8 capital cities with the highest population.";
+          document.getElementById("result").innerHTML = "Game over! The correct answer was <b>" + sequence[7] + "</b>.<br/>The sequence was: " + topic;
           disableGame();
         }
       }
