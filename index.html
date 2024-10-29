@@ -41,7 +41,9 @@
     </style>
   </head>
   <body>
-    <h1>Guess the 8th Item in the Sequence!</h1>
+    <h1>SEQUENCER</h1>
+    <h3>Can you find the 6th Item in the Sequence?</h3>
+    <h4 id="topicTitle"></h4>
     <table>
       <tbody>
         <tr>
@@ -60,18 +62,12 @@
           <td id="item4">?</td>
         </tr>
         <tr>
-          <td id="item5">?</td>
-        </tr>
-        <tr>
-          <td id="item6">?</td>
-        </tr>
-        <tr>
-          <td id="item7" class="highlight">?</td>
+          <td id="item5" class="highlight">?</td>
         </tr>
       </tbody>
     </table>
     <div id="controls">
-      <p id="pointsID">For 7 points...</p>
+      <p id="pointsID">For 6 points...</p>
       <input type="text" id="guessInput" placeholder="Enter your guess..." />
       <button id="submit" onclick="makeGuess()">Submit Guess</button>
       <button id="reveal" onclick="revealNext(true)">Reveal Next</button>
@@ -79,12 +75,14 @@
     <div id="result" style="font-size: 1.2em; margin-top: 20px"></div>
 
     <script>
-      const sequence = ["United", "City", "United", "[None]", "[None]", "Forest", "City", "Wanderers"];
-      const validAnswers = ["wanderers"];
-      const topic = "The second word in 24/25 Premier League clubs, ordered from north to south. Starting with Newcastle, 8th is Wolverhampton Wanderers";
+      const sequence = ["41 - MA", "42 - AR", "43 - CT", "44 - HI", "45 - NY", "46 - PA"];
+      const validAnswers = ["46 - pa", "46 pa", "46-pa"];
+      const topic = "Presidents from 41 to curent, and the state they were born in. Ending with Joe Biden and Pennsylvania";
+      const topicTitle = "Executive Roots";
       let currentIndex = 0;
 
       document.getElementById(`item0`).textContent = sequence[0];
+      document.getElementById("topicTitle").textContent = "Today's Topic: " + topicTitle;
 
       function makeGuess() {
         const guess = document.getElementById("guessInput").value.toUpperCase();
@@ -94,9 +92,9 @@
               "Congratulations! <b>" +
               sequence[7] +
               "</b> is correct!<br/>You receive " +
-              (7 - currentIndex) +
+              (currentIndex == 0 ? "6" : 5 - currentIndex) +
               " point" +
-              (currentIndex == 6 ? "" : "s") +
+              (currentIndex == 4 ? "" : "s") +
               "!<br/>The sequence was: " +
               topic;
             revealAll();
@@ -111,15 +109,16 @@
 
       function revealNext(clear) {
         currentIndex++;
-        if (currentIndex < sequence.length) {
+        if (currentIndex <= sequence.length) {
           document.getElementById(`item${currentIndex}`).textContent = sequence[currentIndex];
           if (clear) {
             document.getElementById("result").innerHTML = "";
           }
-          document.getElementById("pointsID").innerHTML = "For " + (7 - currentIndex) + " point" + (currentIndex == 6 ? "..." : "s...");
+          document.getElementById("pointsID").innerHTML =
+            "For " + (currentIndex == 0 ? "6" : 5 - currentIndex) + " point" + (currentIndex == 4 ? "..." : "s...");
         }
         if (currentIndex === sequence.length - 1) {
-          document.getElementById("result").innerHTML = "Game over! The correct answer was <b>" + sequence[7] + "</b>.<br/>The sequence was: " + topic;
+          document.getElementById("result").innerHTML = "Game over! The correct answer was <b>" + sequence[5] + "</b>.<br/>The sequence was: " + topic;
           disableGame();
         }
       }
@@ -135,6 +134,7 @@
         document.getElementById("guessInput").disabled = true;
         document.getElementById("submit").disabled = true;
         document.getElementById("reveal").disabled = true;
+        document.getElementById("pointsID").innerHTML = "";
       }
     </script>
   </body>
